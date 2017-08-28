@@ -10,6 +10,7 @@ const url = require('url')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let win2;
 
 function createWindow () {
   // Create the browser window.
@@ -21,6 +22,14 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
+
+  win2 = new BrowserWindow({parent: mainWindow, modal:true})
+  win2.loadURL('https://electron.atom.io/')
+  win2.on('closed', function () {
+    win2 = null
+  })
+
+  setTimeout(() => { app.quit() }, 3000)
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
